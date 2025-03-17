@@ -5,13 +5,51 @@ import Events from "./pages/Events";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 
+// Layout component that includes the Navbar
+const Layout = ({ children }) => {
+  return (
+    <div>
+      <Navbar />
+      {children}
+    </div>
+  );
+};
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/events" element={<Events />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route
+        path="/"
+        element={
+          <Layout>
+            <Home />
+          </Layout>
+        }
+      />
+      <Route
+        path="/events"
+        element={
+          <Layout>
+            <Events />
+          </Layout>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <Layout>
+            <Dashboard />
+          </Layout>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <Layout>
+            <Profile />
+          </Layout>
+        }
+      />
     </Routes>
   );
 }
