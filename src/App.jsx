@@ -1,56 +1,24 @@
-import Navbar from "./components/Navbar";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
+import NavigationBar from "./components/Navbar";
 import Home from "./pages/Home";
 import Events from "./pages/Events";
-import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
-
-// Layout component that includes the Navbar
-const Layout = ({ children }) => {
-  return (
-    <div>
-      <Navbar />
-      {children}
-    </div>
-  );
-};
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Layout>
-            <Home />
-          </Layout>
-        }
-      />
-      <Route
-        path="/events"
-        element={
-          <Layout>
-            <Events />
-          </Layout>
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          <Layout>
-            <Dashboard />
-          </Layout>
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <Layout>
-            <Profile />
-          </Layout>
-        }
-      />
-    </Routes>
+    <>
+      <NavigationBar /> {/* Navbar appears on every page */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </>
   );
 }
 

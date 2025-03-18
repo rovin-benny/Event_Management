@@ -1,15 +1,16 @@
-import "./Home.css";
+import React from "react";
+import "./Home.css"; // Ensure you have this file in your styles
 
-function Home() {
+const HeroSection = () => {
   return (
-    <section className="hero">
-      <div className="overlay">
+    <div className="hero-section" style={{ backgroundImage: "url('/your-image.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+      <div className="hero-content text-white text-center">
         <h1>Plan Your Dream Event with Us</h1>
         <p>Seamless planning for unforgettable moments</p>
-        <button className="cta">Explore Events</button>
+        <button className="btn btn-warning">Explore Events</button>
       </div>
-    </section>
+    </div>
   );
-}
+};
 
-export default Home;
+export default HeroSection;
