@@ -1,8 +1,7 @@
-.hero {
+   .hero {
     background: url("src/assets/download.jpg") center/cover no-repeat;
     height: 100vh;
     display: flex;
-    margin-left: 200px;
     align-items: center;
     justify-content: center;
     text-align: center;
