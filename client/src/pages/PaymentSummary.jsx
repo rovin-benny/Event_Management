@@ -6,15 +6,6 @@ import {IoMdArrowBack} from 'react-icons/io'
 import { UserContext } from '../UserContext';
 import Qrcode from 'qrcode' //TODO:
 
-
-let ticketIdCounter = 0;
-const generateTicketId = () => {
-  ticketIdCounter++;
-  return `TICKET${ticketIdCounter}`;
-};
-
-
-
 export default function PaymentSummary() {
     const {id} = useParams();
     const [event, setEvent] = useState(null);
@@ -49,32 +40,29 @@ export default function PaymentSummary() {
     });
     const [redirect, setRedirect] = useState('');
   
-    const {  ticketId } = useParams();
-
-useEffect(() => {
-  if (!id) {
-    return;
-  }
-  axios.get(`/event/${id}/ordersummary/paymentsummary`).then(response => {
-    setEvent(response.data);
-
-    setTicketDetails(prevTicketDetails => ({
-      ...prevTicketDetails,
-      eventid: response.data._id,
-      ticketDetails: {
-        ...prevTicketDetails.ticketDetails,
-        eventname: response.data.title,
-        eventdate: response.data.eventDate.split("T")[0],
-        eventtime: response.data.eventTime,
-        ticketprice: response.data.ticketPrice,
-        ticketId: ticketId || generateTicketId(), // Use the passed ticket ID or generate a new one
+    useEffect(()=>{
+      if(!id){
+        return;
       }
-    }));
-  }).catch((error) => {
-    console.error("Error fetching events:", error);
-  });
-}, [id]);
+      axios.get(`/event/${id}/ordersummary/paymentsummary`).then(response => {
+        setEvent(response.data)
 
+        setTicketDetails(prevTicketDetails => ({
+          ...prevTicketDetails,
+          eventid: response.data._id,
+       //!capturing event details from backend for ticket----------------------
+          ticketDetails: {
+            ...prevTicketDetails.ticketDetails,
+            eventname: response.data.title,
+            eventdate: response.data.eventDate.split("T")[0],
+            eventtime: response.data.eventTime,
+            ticketprice: response.data.ticketPrice,
+          }
+        }));
+      }).catch((error) => {
+        console.error("Error fetching events:", error);
+      });
+    }, [id]);
 //! Getting user details using useeffect and setting to new ticket details with previous details
     useEffect(() => {
       setTicketDetails(prevTicketDetails => ({
@@ -106,48 +94,33 @@ useEffect(() => {
         [name]: value,
       }));
     };
+//! creating a ticket ------------------------------
     const createTicket = async (e) => {
-      e.preventDefault();
-      // Generate a new ticket ID
-      const ticketId = generateTicketId();
-    
-      // Add the ticket ID to the ticket details
-      const updatedTicketDetails = {
-        ...ticketDetails,
-        ticketDetails: {
-          ...ticketDetails.ticketDetails,
-          ticketId: ticketId,
-        }
-      };
-    
-      try {
-        // Generate a ticket QR code
-        const qrCode = await generateQRCode(
-          updatedTicketDetails.ticketDetails.eventname,
-          updatedTicketDetails.ticketDetails.name
-        );
-    
-        // Update the ticket details with the QR code
-        const finalTicketDetails = {
-          ...updatedTicketDetails,
-          ticketDetails: {
-            ...updatedTicketDetails.ticketDetails,
-            qr: qrCode,
-          }
-        };
-    
-        // Post the details to the backend
-        const response = await axios.post(`/tickets`, finalTicketDetails);
-        alert("Ticket Created");
-        setRedirect(true);
-        console.log('Success creating ticket', finalTicketDetails);
-      } catch (error) {
-        console.error('Error creating ticket:', error);
+  e.preventDefault();
+//!adding a ticket qr code to booking ----------------------
+  try {
+    const qrCode = await generateQRCode(
+      ticketDetails.ticketDetails.eventname,
+      ticketDetails.ticketDetails.name
+    );
+//!updating the ticket details qr with prevoius details ------------------
+    const updatedTicketDetails = {
+      ...ticketDetails,
+      ticketDetails: {
+        ...ticketDetails.ticketDetails,
+        qr: qrCode,
       }
     };
+//!posting the details to backend ----------------------------
+    const response = await axios.post(`/tickets`, updatedTicketDetails);
+    alert("Ticket Created");
+    setRedirect(true)
+    console.log('Success creating ticket', updatedTicketDetails)
+  } catch (error) {
+    console.error('Error creating ticket:', error);
+  }
 
-
-
+}
 //! Helper function to generate QR code ------------------------------
 async function generateQRCode(name, eventName) {
   try {
