@@ -2,7 +2,7 @@
 
 We are thrilled to introduce our Event Management System, a comprehensive solution designed to  event planning, registration, and ticket booking.We are developing this system using the MERN stack (MongoDB, Express.js, React.js, Node.js).
 
-**Skills:** *Figma · Ui/ux · React.js · MongoDB · Node.js · Express.js · Requirements Analysis · User Interface Design*
+**Skills:** *Figma · Ui/ux · React.js · MongoDB · Node.js · Express.js · User Interface Design*
 
 ## Features
 
@@ -48,7 +48,3 @@ We are thrilled to introduce our Event Management System, a comprehensive soluti
 
 **The application should now be running. You can access it at [http://localhost:5173](http://localhost:5173)**.  
 **The server is running on [http://localhost:4000](http://localhost:4000)**.
-
----
-
-<h1>Thank you for your interest in our Event Management System. We look forward to making your event planning and management seamless and efficient! </h1>
