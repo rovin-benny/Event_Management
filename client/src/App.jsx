@@ -9,7 +9,6 @@ import axios from 'axios'
 import { UserContextProvider } from './UserContext'
 import UserAccountPage from './pages/UserAccountPage'
 import ForgotPassword from './pages/ForgotPassword'
-import ResetPassword from './pages/ResetPassword'
 import AddEvent from './pages/AddEvent'
 import EventPage from './pages/EventPage'
 import CalendarView from './pages/CalendarView'
@@ -41,7 +40,6 @@ function App() {
       <Route path='/register' element={<RegisterPage />}/>
       <Route path='/login' element={<LoginPage />}/>
       <Route path='/forgotpassword' element = {<ForgotPassword/>} />
-      <Route path='/resetpassword' element = {<ResetPassword/>} />
       <Route path='/event/:id/ordersummary/paymentsummary' element = {<PaymentSummary />} />
       
     
